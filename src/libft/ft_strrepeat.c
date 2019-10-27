@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 06:18:08 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/26 23:28:13 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:54:21 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 char	*ft_strrepeat(char const *str, size_t count)
 {
-	char *new;
+	char	*new;
+	size_t	len;
 
 	new = NULL;
 	if (str && count > 0)
 	{
-		if ((new = (char *)malloc(sizeof(char) *
-			(ft_strlen(str) * count))) == NULL)
+		len = ft_strlen(str) * count + 1;
+		if ((new = ft_memalloc(len)) == NULL)
 			return (NULL);
 		while (count--)
 		{

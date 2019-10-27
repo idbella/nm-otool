@@ -6,7 +6,7 @@
 #    By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/27 11:01:50 by sid-bell          #+#    #+#              #
-#    Updated: 2019/10/27 11:17:43 by sid-bell         ###   ########.fr        #
+#    Updated: 2019/10/27 13:58:56 by sid-bell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,5 +17,5 @@ then
 elif [ $1 == "nm" ]
 then
     echo "diff <(./nm $2) <(nm $2)"
-    diff <(./otool $2) <(otool -t $2)
+    diff <(./nm $2) <(nm $2)
 fi
