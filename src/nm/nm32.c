@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 12:53:06 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 13:03:55 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 15:46:49 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void	ft_nm32(t_params *params)
 	struct mach_header			*header;
 	struct symtab_command		*sym;
 	struct segment_command		*seg;
-	t_list						*lst;
 
-	header = (struct mach_header *) params->ptr;
+	header = (struct mach_header *)params->ptr;
 	ncmds = header->ncmds;
 	seg = params->ptr + sizeof(*header);
 	i = 0;

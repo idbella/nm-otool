@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 01:23:51 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/26 23:10:59 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 16:27:11 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,10 @@ size_t					ft_strlen(char const *s);
 char					*ft_strdup(const char *s1);
 char					*ft_strndup(const char *s1, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
-char					*ft_errors_0_21(int error);
-char					*ft_errors_22_43(int error);
-char					*ft_errors_44_65(int error);
-char					*ft_errors_66_87(int error);
-char					*ft_errors_88_106(int error);
-char					*ft_strerror(int error);
 int						get_next_line(const int fd, char **line);
 void					ft_printf_fd(int fd, char *format, ...);
 void					ft_getstr(t_printf_params *param);
+void					ft_gethex(t_printf_params *param);
 void					ft_getchar(t_printf_params *param);
 void					ft_getint(t_printf_params *param);
 int						ft_csd(t_printf_params *param);
@@ -126,4 +121,6 @@ void					ft_append(t_printf_params *param);
 t_printf_params			*ft_init_printf(char *format);
 void					ft_printf(char *format, ...);
 void					ft_vprintf(int fd, va_list *list, char *format);
+void					ft_getflags(t_printf_params *params);
+void					ft_padding(int padding, char **str, char leading);
 #endif

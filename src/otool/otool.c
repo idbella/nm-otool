@@ -6,15 +6,17 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:17:27 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 14:16:26 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 15:58:03 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_otool.h"
 
-void ft_printhex(unsigned char c)
+void	ft_printhex(unsigned char c)
 {
-	char *patt = "0123456789abcdef";
+	char *patt;
+
+	patt = "0123456789abcdef";
 	ft_printf("%c", patt[c / 16]);
 	ft_printf("%c", patt[c % 16]);
 }

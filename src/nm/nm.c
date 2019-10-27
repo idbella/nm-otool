@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:17:27 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 14:13:21 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 15:48:56 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,20 @@ void	ft_sort(t_list *list)
 	t_list		*head;
 	t_symbol	*symbol1;
 	t_symbol	*symbol2;
-	char	c;
+	char		c;
 
 	c = 1;
 	head = list;
-	while (c)
+	while (c && ((c = 0) || 1))
 	{
-		c = 0;
 		while (list)
 		{
 			if (list->next)
 			{
 				symbol2 = list->next->content;
 				symbol1 = list->content;
-				if (ft_strcmp(symbol1->name, symbol2->name) > 0)
+				if (ft_strcmp(symbol1->name, symbol2->name) > 0 && (c = 1))
 				{
-					c = 1;
 					list->next->content = list->content;
 					list->content = symbol2;
 				}
@@ -43,19 +41,19 @@ void	ft_sort(t_list *list)
 	}
 }
 
-static char ft_gettype(int type)
+char	ft_gettype(int type)
 {
 	if (type == 1)
-		return 'U';
+		return ('U');
 	else if (type == 15)
-		return 'T';
+		return ('T');
 	else if (type == 14)
-		return 't';
+		return ('t');
 	else
 		return ('?');
 }
 
-void ft_print(t_params *params)
+void	ft_print(t_params *params)
 {
 	t_list		*lst;
 	t_symbol	*symbol;
@@ -84,7 +82,7 @@ void ft_print(t_params *params)
 	}
 }
 
-void ft_nm(t_params *params)
+void	ft_nm(t_params *params)
 {
 	uint32_t	mgc_nbr;
 

@@ -6,13 +6,11 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 06:05:31 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 13:38:47 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 16:30:31 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	ft_gethex(t_printf_params *param);
 
 int		ft_csd(t_printf_params *param)
 {
@@ -39,7 +37,7 @@ int		ft_csd(t_printf_params *param)
 	return (0);
 }
 
-void		ft_padding(int padding, char **str, char leading)
+void	ft_padding(int padding, char **str, char leading)
 {
 	char	s[2];
 	int		len;
@@ -75,21 +73,6 @@ void	ft_getstr(t_printf_params *param)
 		str = ft_strdup("(null)");
 	else
 		str = ft_strdup(str);
-	ft_padding(param->padding, &str, param->leading);
-	tmp = param->str;
-	param->str = ft_strjoin(param->str, str);
-	free(tmp);
-	free(str);
-}
-
-void	ft_gethex(t_printf_params *param)
-{
-	unsigned long long	result;
-	char				*str;
-	char				*tmp;
-
-	result = va_arg(*param->list, unsigned long long);
-	str = ft_itoa(result, 16);
 	ft_padding(param->padding, &str, param->leading);
 	tmp = param->str;
 	param->str = ft_strjoin(param->str, str);

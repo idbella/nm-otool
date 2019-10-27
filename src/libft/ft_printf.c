@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 02:28:02 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 10:46:54 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 16:24:44 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,6 @@ void			ft_append(t_printf_params *param)
 	param->str = ft_strjoin(param->str, str);
 	free(tmp);
 	free(str);
-}
-
-void			ft_getflags(t_printf_params *params)
-{
-	int		padding;
-
-	if (*params->format == ' ' || ft_isdigit(*params->format))
-	{
-		if (*params->format == '0')
-			params->leading = '0';
-		else if (*params->format == ' ')
-			params->leading = ' ';
-		params->format++;
-		if (ft_isdigit(*params->format))
-		{
-			padding = ft_atoi(params->format);
-			params->format += ft_nbrlen(padding, 10);
-			params->padding = padding;
-		}
-	}
 }
 
 void			ft_vprintf(int fd, va_list *list, char *format)

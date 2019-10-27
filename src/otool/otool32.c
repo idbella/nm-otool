@@ -6,13 +6,13 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 14:12:53 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 15:04:57 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 16:19:08 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_otool.h"
 
-static void	ft_print(uint32_t ptr, uint32_t size, char *tmp, uint32_t offset)
+void	ft_print32(uint32_t ptr, uint32_t size, char *tmp, uint32_t offset)
 {
 	uint32_t i;
 	uint32_t i2;
@@ -30,45 +30,56 @@ static void	ft_print(uint32_t ptr, uint32_t size, char *tmp, uint32_t offset)
 			i2++;
 		}
 		ft_printf(" \n");
-		ptr+=16;
+		ptr += 16;
 		i += 16;
 	}
 }
 
-void ft_otool32(void *ptr)
+char	ft_getsection32(t_segment32 *seg, void *ptr)
 {
-	int							ncmds;
-	int							i;
-	struct mach_header  		*header;
-	struct segment_command  	*seg;
-	struct section  			*sec;
+	int			i;
+	int			count;
+	t_section32	*sec;
 
-	header = (struct mach_header *) ptr;
+	i = 0;
+	if (ft_strequ(seg->segname, "__TEXT"))
+	{
+		i = 0;
+		count = seg->nsects;
+		sec = (void *)++seg;
+		while (i < count)
+		{
+			if (ft_strequ(sec->sectname, "__text"))
+			{
+				ft_printf("Contents of (__TEXT,__text) section\n");
+				ft_print32(sec->addr, sec->size, ptr, sec->offset);
+				return (1);
+			}
+			sec++;
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void	ft_otool32(void *ptr)
+{
+	int			ncmds;
+	int			i;
+	t_header32	*header;
+	t_segment32	*seg;
+
+	header = (t_header32 *)ptr;
 	ncmds = header->ncmds;
-	seg = ptr + sizeof(struct mach_header);
+	seg = ptr + sizeof(t_header32);
 	i = 0;
 	while (i < ncmds)
 	{
 		if (seg->cmd == LC_SEGMENT)
 		{
-			if (ft_strequ(seg->segname, "__TEXT"))
-			{
-				i = 0;
-				ncmds = seg->nsects;
-				sec = (void *) ++seg;
-				while (i < ncmds)
-				{
-					if (ft_strequ(sec->sectname, "__text"))
-					{
-						ft_printf("Contents of (__TEXT,__text) section\n");
-						ft_print(sec->addr, sec->size, ptr, sec->offset);
-						return ;
-					}
-					sec++;
-					i++;
-				}
-				return ;
-			}
+			if (ft_getsection32(seg, ptr))
+				break ;
 		}
 		seg++;
 		i++;
