@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 12:49:48 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 15:20:58 by sid-bell         ###   ########.fr       */
+/*   Created: 2019/10/27 14:02:42 by sid-bell          #+#    #+#             */
+/*   Updated: 2019/10/27 15:08:39 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_nm.h"
+#include "ft_otool.h"
 
 int main(int argc, char **argv)
 {
@@ -18,14 +18,11 @@ int main(int argc, char **argv)
 	struct stat	st;
 	int			fd;
 	void		*ptr;
-	t_params	params;
 	int			i;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (argc > 2)
-			ft_printf("\n%s:\n", argv[i]);
 		if ((fd = open(argv[i], O_RDONLY)) < 0)
 		{
 			ft_printf("error opening file\n");
@@ -41,9 +38,8 @@ int main(int argc, char **argv)
 			ft_printf("error mapping file\n");
 			return (1);
 		}
-		params.list = NULL;
-		params.ptr = ptr;
-		ft_nm(&params);
+		ft_printf("%s:\n", argv[i]);
+		ft_otool(ptr);
 		i++;
 	}
 	if (argc < 2)
