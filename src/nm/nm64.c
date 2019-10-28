@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 12:56:01 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 15:47:04 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/28 00:49:15 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,17 @@ void	ft_get64(t_params *params, struct symtab_command *sym)
 	i = 0;
 	while (i < sym->nsyms)
 	{
-		symbol = ft_memalloc(sizeof(t_symbol));
-		symbol->address = array[i].n_value;
-		symbol->name = string + array[i].n_un.n_strx;
-		symbol->type = array[i].n_type;
-		node = ft_lstnew(symbol, 0);
-		ft_lstadd(&params->list, node);
+		char *name = string + array[i].n_un.n_strx;
+		if (!(array[i].n_type & N_STAB))
+		{
+			symbol = ft_memalloc(sizeof(t_symbol));
+			symbol->address = array[i].n_value;
+			symbol->name = string + array[i].n_un.n_strx;
+			symbol->type = array[i].n_type;
+			symbol->section = array[i].n_sect;
+			node = ft_lstnew(symbol, 0);
+			ft_lstadd(&params->list, node);
+		}
 		i++;
 	}
 }

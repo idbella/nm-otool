@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:17:27 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 15:48:56 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/28 00:51:37 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,40 @@ void	ft_sort(t_list *list)
 	}
 }
 
-char	ft_gettype(int type)
+char	ft_getkey(int type, char c)
 {
-	if (type == 1)
-		return ('U');
-	else if (type == 15)
-		return ('T');
-	else if (type == 14)
-		return ('t');
-	else
-		return ('?');
+	if (type & N_EXT)
+		return (ft_toupper(c));
+	return (c);
+}
+
+char	ft_gettype(t_symbol *sym)
+{
+	int type;
+
+	type = sym->type;
+	if ((type & N_TYPE) == N_UNDF)
+		return 'U';
+	if ((type & N_TYPE) == N_ABS)
+		return 'A';
+	if ((type & N_TYPE) == N_SECT)
+	{
+		if (sym->section == 1)
+			return (ft_getkey(type, 't'));
+		if (sym->section == 31 || sym->section == 11)
+			return (ft_getkey(type, 'b'));
+		if (sym->section == 17 || sym->section == 5 || sym->section == 12 || sym->section == 29 || sym->section == 10 || sym->section == 28 || sym->section == 32)
+			return (ft_getkey(type, 's'));
+		else if (sym->section == 30)
+			return (ft_getkey(type, 'd'));
+		return ('*');
+	}
+	if ((type & N_TYPE) == N_PBUD)
+		return ('u');
+	if ((type & N_TYPE) == N_INDR)
+		return ('I');
+	
+	return '#';
 }
 
 void	ft_print(t_params *params)
@@ -63,7 +87,7 @@ void	ft_print(t_params *params)
 	while (lst)
 	{
 		symbol = lst->content;
-		c = ft_gettype(symbol->type);
+		c = ft_gettype(symbol);
 		if (symbol->address)
 		{
 			if (params->arch == 64)

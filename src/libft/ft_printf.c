@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 02:28:02 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 16:24:44 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/27 19:12:29 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void			ft_vprintf(int fd, va_list *list, char *format)
 		if (*param->format == '%')
 			while (*(++param->format))
 			{
-				ft_getflags(param);
-				ft_csd(param);
 				param->leading = 0;
 				param->padding = 0;
+				ft_getflags(param);
+				ft_csd(param);
 				break ;
 			}
 		else

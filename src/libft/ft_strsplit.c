@@ -3,80 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amassnao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 09:02:51 by amassnao          #+#    #+#             */
-/*   Updated: 2018/12/24 22:13:37 by amassnao         ###   ########.fr       */
+/*   Created: 2018/10/09 00:31:23 by sid-bell          #+#    #+#             */
+/*   Updated: 2019/02/12 11:18:35 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		word_count(char const *s, char c)
+static int	ft_count(char *str, char c)
 {
-	int conter;
+	int index;
+	int count;
 
-	conter = 0;
-	while (*s)
+	count = 0;
+	index = 0;
+	while (str[index])
 	{
-		if (*s != c)
+		if (str[index++] == c)
 		{
-			conter++;
-			while (*s)
-				if (*s != c)
-					s++;
-				else
-					break ;
-			continue;
+			count++;
+			while (str[index] == c)
+				index++;
 		}
-		s++;
 	}
-	return (conter);
+	count += ft_strlen(str) ? 1 : 0;
+	return (count);
 }
 
-static char		*word_place(const char *s, char c)
+static void	ft_fill(char *str, char **arr, char c)
 {
-	int			conter;
-	char		*word;
-	const char	*p;
-	int			i;
+	int i;
+	int element;
+	int start;
 
-	p = s;
-	conter = 0;
-	while (*s && *(s++) != c)
-		conter++;
-	word = malloc(sizeof(char) * (conter + 1));
 	i = 0;
-	while (*p)
-		if (*p != c)
-			word[i++] = *(p++);
-		else
-			break ;
-	word[i] = '\0';
-	return (word);
+	start = 0;
+	element = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			arr[element] = ft_strsub(str, start, i - start);
+			start = i + 1;
+			while (str[i + 1] == c)
+			{
+				i++;
+				start = i + 1;
+			}
+			element++;
+		}
+		if (!str[i + 1])
+			arr[element] = ft_strsub(str, start, i - start + 1);
+		i++;
+	}
 }
 
-char			**ft_strsplit(char const *s, char c)
+char		**ft_strsplit(char const *s, char c)
 {
-	char	**words;
-	int		conter;
+	char	**array;
+	int		count;
+	char	*str;
 
-	words = malloc(sizeof(char *) * (word_count(s, c) + 1));
-	conter = 0;
-	while (*s)
+	array = NULL;
+	if (s)
 	{
-		if (*s != c)
-		{
-			words[conter++] = word_place(s, c);
-			while (*s)
-				if (*s != c)
-					s++;
-				else
-					break ;
-			continue;
-		}
-		s++;
+		if (!(str = ft_strctrim(s, c)))
+			return (NULL);
+		count = ft_count(str, c);
+		if (!(array = ft_memalloc(sizeof(char *) * (count + 1))))
+			return (NULL);
+		ft_fill(str, array, c);
+		free(str);
+		str = NULL;
 	}
-	words[conter] = NULL;
-	return (words);
+	return (array);
 }
