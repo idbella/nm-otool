@@ -1,19 +1,21 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    vimdiff                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/26 22:31:28 by sid-bell          #+#    #+#              #
-#    Updated: 2019/10/29 17:58:45 by sid-bell         ###   ########.fr        #
+#    Created: 2019/10/27 11:01:50 by sid-bell          #+#    #+#              #
+#    Updated: 2019/10/29 18:01:01 by sid-bell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-lib= src/libft/libft.a -Isrc/libft -Isrc/include
-
-all:
-	make -C src/libft
-	gcc src/nm/*.c -o nm $(lib)
-	gcc src/otool/*.c -o otool $(lib)
-	gcc src/hexdump.c -o hexdump $(lib)
+if [ $1 == "otool" ]
+then
+    echo "vimdiff <(./otool $2 $3) <(otool -t $2 $3)"
+    vimdiff <(./otool $2 $3) <(otool -t $2 $3)
+elif [ $1 == "nm" ]
+then
+    echo "vimdiff <(./nm $2 $3) <(nm $2 $3)"
+    vimdiff <(./nm $2 $3) <(nm $2 $3)
+fi

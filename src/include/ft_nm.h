@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 12:51:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/28 01:10:56 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/29 05:43:36 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 
 typedef struct	s_symbol
 {
-	char		*name;
-	uint64_t	address;
-	uint8_t		type;
-	uint8_t		section;
+	char			*name;
+	uint64_t		address;
+	uint8_t			type;
+	uint8_t			section;
 }				t_symbol;
 
 typedef struct	s_params
@@ -36,8 +36,7 @@ typedef struct	s_params
 	void		*ptr;
 	char		arch;
 	size_t		size;
-	t_segment32	*seg32;
-	t_segment64	*seg64;
+	t_list		*sections;
 }				t_params;
 
 void			ft_sort(t_list *list);

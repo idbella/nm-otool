@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 14:10:33 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/27 16:17:42 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/28 23:39:28 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	ft_getsection(t_segment64 *seg, void *ptr)
 	int			count;
 	t_section64	*sec;
 
-	i = 0;
 	if (ft_strequ(seg->segname, "__TEXT"))
 	{
 		i = 0;
@@ -55,7 +54,7 @@ char	ft_getsection(t_segment64 *seg, void *ptr)
 				ft_print64(sec->addr, sec->size, ptr, sec->offset);
 				return (1);
 			}
-			sec++;
+			sec += sec->size;
 			i++;
 		}
 		return (1);
@@ -81,7 +80,7 @@ void	ft_otool64(void *ptr)
 			if (ft_getsection(seg, ptr))
 				break ;
 		}
-		seg++;
+		seg = (void *)seg + seg->cmdsize;
 		i++;
 	}
 }

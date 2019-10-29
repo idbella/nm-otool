@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sid-bell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 07:12:37 by sid-bell          #+#    #+#             */
-/*   Updated: 2018/10/14 17:12:16 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/29 18:02:28 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,17 @@
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	return (ft_strncmp(s1, s2, ft_strlen(s1) + 1));
+	unsigned char *str1;
+	unsigned char *str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (*str1 && *str2)
+	{
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		str1++;
+		str2++;
+	}
+	return (*str1 - *str2);
 }
