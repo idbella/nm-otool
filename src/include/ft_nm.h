@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 12:51:05 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/29 05:43:36 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/10/31 10:44:04 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_symbol
 	uint64_t		address;
 	uint8_t			type;
 	uint8_t			section;
+	uint64_t		value;
 }				t_symbol;
 
 typedef struct	s_params

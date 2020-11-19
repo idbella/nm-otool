@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 14:10:33 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/28 23:39:28 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/11/02 08:11:06 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,20 @@ char	ft_getsection(t_segment64 *seg, void *ptr)
 	int			count;
 	t_section64	*sec;
 
-	if (ft_strequ(seg->segname, "__TEXT"))
+	i = 0;
+	count = seg->nsects;
+	sec = (void *)++seg;
+	while (i < count)
 	{
-		i = 0;
-		count = seg->nsects;
-		sec = (void *)++seg;
-		while (i < count)
-		{
+		if (ft_strequ(seg->segname, "__TEXT"))
 			if (ft_strequ(sec->sectname, "__text"))
 			{
 				ft_printf("Contents of (__TEXT,__text) section\n");
 				ft_print64(sec->addr, sec->size, ptr, sec->offset);
 				return (1);
 			}
-			sec += sec->size;
-			i++;
-		}
-		return (1);
+		sec += sec->size;
+		i++;
 	}
 	return (0);
 }
@@ -75,10 +72,11 @@ void	ft_otool64(void *ptr)
 	i = 0;
 	while (i < ncmds)
 	{
+		ft_printf("seg [%d]\n", i);
 		if (seg->cmd == LC_SEGMENT_64)
 		{
-			if (ft_getsection(seg, ptr))
-				break ;
+			ft_getsection(seg, ptr);
+				//break ;
 		}
 		seg = (void *)seg + seg->cmdsize;
 		i++;

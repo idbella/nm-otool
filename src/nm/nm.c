@@ -6,7 +6,7 @@
 /*   By: sid-bell <sid-bell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:17:27 by sid-bell          #+#    #+#             */
-/*   Updated: 2019/10/29 18:24:50 by sid-bell         ###   ########.fr       */
+/*   Updated: 2019/11/02 08:29:07 by sid-bell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ char	ft_gettype(t_symbol *sym, t_list *lst)
 
 	type = sym->type;
 	if ((type & N_TYPE) == N_UNDF)
-		return ('U');
+	{	
+		if (type & N_EXT && sym->value != 0)
+			return ('C');
+		else
+			return ('U');
+	}
 	if ((type & N_TYPE) == N_ABS)
 		return ('A');
 	if ((type & N_TYPE) == N_SECT)
@@ -76,7 +81,7 @@ void	ft_print(t_params *params)
 	{
 		symbol = lst->content;
 		c = ft_gettype(symbol, params->sections);
-		if (symbol->address)
+		if (symbol->value)
 		{
 			format = params->arch == 64 ? "%016x %c %s\n" : "%08x %c %s\n";
 			ft_printf(format, symbol->address, c, symbol->name);
@@ -95,16 +100,18 @@ void	ft_nm(t_params *params)
 	uint32_t	mgc_nbr;
 
 	mgc_nbr = *((int *)params->ptr);
-	if (mgc_nbr == MH_MAGIC_64)
+	if (mgc_nbr & MH_MAGIC_64 || mgc_nbr & MH_CIGAM_64)
 	{
 		params->arch = 64;
 		ft_nm64(params);
 	}
-	else if (mgc_nbr == MH_MAGIC)
+	else if (mgc_nbr & MH_MAGIC || mgc_nbr & MH_CIGAM)
 	{
 		params->arch = 32;
 		ft_nm32(params);
 	}
+	else
+		ft_printf("failed to dectect arch :-(\n");
 	ft_sort(params->list);
 	ft_print(params);
 }
